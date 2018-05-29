@@ -5,6 +5,11 @@
     <title>代办事项</title>
 </head>
 <body>
-    这是一个html主页
+
+    <ul>
+        {% for value in data %}
+        <li> {{ value }} </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
