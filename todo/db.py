@@ -28,6 +28,9 @@ class TodoDB(object):
         conn.commit()
         conn.close()
 
+    def delete(self, todo_id):
+        print('delete:', todo_id)
+
 
 if __name__ == "__main__":
     db = TodoDB()
