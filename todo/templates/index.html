@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>代办事项</title>
+
 </head>
 <body>
 
-    <ul>
-        {% for value in data %}
-        <li> {{ value }} </li>
-        {% endfor %}
-    </ul>
+<ul>
+    {% for value in data %}
+    <li> {{ value[1] }} <button onclick="myFunction({{ value[0] }})"> 删除 </button></li>
+    {% endfor %}
+</ul>
 </body>
+<script>
+        function myFunction(index){
+            console.log('hello world',index)
+        }
+</script>
 </html>
