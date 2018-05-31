@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 
 from todo.db import TodoDB
 
@@ -17,8 +17,11 @@ def index():
 def delete(todo_id):
     db = TodoDB()
     todo = db.delete(todo_id)
+    result = db.read(todo_id)
     db.close()
-    return 'ok'
+
+    return jsonify({'existed': True}) if result else \
+        jsonify({'existed': False})
 
 
 if __name__ == "__main__":
