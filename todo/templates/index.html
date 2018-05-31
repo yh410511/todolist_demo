@@ -15,7 +15,18 @@
 </body>
 <script>
         function myFunction(index){
-            console.log('hello world',index)
+            console.log('deleting',index)
+            fetch('http://127.0.0.1:5000/todo/'+index,{method:'DELETE'})
+            .then(
+                function(response){
+                console.log(response.text());<!-- 点击删除，自己刷新页面消失-->
+                return;
+                }
+            ).then(
+                function(response){
+                    window.location.reload();<!-- 自动删除-->
+                }
+            )
         }
 </script>
 </html>
