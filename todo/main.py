@@ -9,6 +9,7 @@ app = Flask(__name__)
 def index():
     db = TodoDB()
     todo = db.read_all()
+    db.close()
     return render_template('index.html', data=todo)
 
 
@@ -16,6 +17,7 @@ def index():
 def delete(todo_id):
     db = TodoDB()
     todo = db.delete(todo_id)
+    db.close()
     return 'ok'
 
 
