@@ -45,8 +45,16 @@ class TodoDB(object):
         self.commit()
         return
 
+    def read(self, todo_id):
+        cursor = self.cursor()
+        cursor = cursor.execute('select id ,content from todo where id=?', (todo_id,))
+        data = cursor.fetchone()
+        cursor.close()
+        return data
+
 
 if __name__ == "__main__":
     db = TodoDB()
-    db.read_all()
+    # db.read_all()
     # db.init_db()
+    db.read()
