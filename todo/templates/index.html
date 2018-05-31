@@ -19,10 +19,12 @@
             fetch('http://127.0.0.1:5000/todo/'+index,{method:'DELETE'})
             .then(
                 function(response){
-                console.log(response.text());<!-- 点击删除，自己刷新页面消失-->
-                return;
+                <!--console.log(response.text());&lt;!&ndash; 点击删除，自己刷新页面消失&ndash;&gt;-->
+                <!--return;-->
+                console.log(response.json());
                 }
-            ).then(
+            )
+            .then(
                 function(response){
                     window.location.reload();<!-- 自动删除-->
                 }
