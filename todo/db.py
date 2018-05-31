@@ -2,15 +2,24 @@ import sqlite3
 
 
 class TodoDB(object):
+    def __init__(self):
+        self.conn = sqlite3.connect('test.db')
+
+    def cursor(self):
+        return self.conn.cursor()
+
+    def close(self):
+        self.conn.close()
+
+    def commit(self):
+        self.conn.commit()
 
     def read_all(self):
-        conn = sqlite3.connect('test.db')
-        cursor = conn.cursor()
+        cursor = self.cursor()
         cursor = cursor.execute('select id,content from todo')
         data = cursor.fetchall()
         # data = [d[0] for d in data]
         cursor.close()
-        conn.close()
         return data
 
         # return ["测试1",
@@ -29,7 +38,12 @@ class TodoDB(object):
         conn.close()
 
     def delete(self, todo_id):
-        print('delete:', todo_id)
+        # print('delete',todo_id)
+        cursor = self.cursor()
+        cursor = cursor.execute('delete from todo where id=?', (todo_id,))
+        cursor.close()
+        self.commit()
+        return
 
 
 if __name__ == "__main__":
