@@ -16,7 +16,7 @@ class TodoDB(object):
 
     def read_all(self):
         cursor = self.cursor()
-        cursor = cursor.execute('select id,content from todo')
+        cursor = cursor.execute('select id,content from todo order by id desc')
         data = cursor.fetchall()
         # data = [d[0] for d in data]
         cursor.close()
@@ -52,9 +52,16 @@ class TodoDB(object):
         cursor.close()
         return data
 
+    def create(self, text):
+        cursor = self.cursor()
+        cursor = cursor.execute('insert into todo(content) values (?)', (text,))
+        cursor.close()
+        self.commit()
+
 
 if __name__ == "__main__":
     db = TodoDB()
     # db.read_all()
     # db.init_db()
     db.read()
+    # db.create()
