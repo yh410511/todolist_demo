@@ -33,5 +33,21 @@ def add():
     return "ok"
 
 
+@app.route('/todo/<int:todo_id>',  methods=['PUT'])
+def flip_status(todo_id):
+    db = TodoDB()
+    todo = db.read(todo_id)
+    print("ddsdsdsd")
+    if todo:
+        status = todo[2]
+        print(status)
+        status = 'done' if status == 'doing' else 'doing'
+        print(status)
+        db.update_status(todo_id, status)
+        db.commit()
+    db.close()
+    return 'ok'
+
+
 if __name__ == "__main__":
     app.run(debug=True)
