@@ -5,24 +5,49 @@
     <title>代办事项</title>
 <style>
     li{
-    list-style-type:none
+    list-style-type:none;
+    }
+    del{
+    color:red;
+    }
+    span{
+    margin:200px;
+    }
+    .a{
+    border:1px solid red;
+    }
+    .s{
+    font-size:90px;
+    color:orange
     }
 </style>
 </head>
 <body>
-<center id="a">
+ <div class="a">
+<center>
+
+    <div class="s">这是一个Html界面</div><br><br>
 <ul>
     {% for value in data %}
-    <li> {{ value[1] }} <button onclick="myFunction({{ value[0] }})"> 删除 </button></li>
+    {% if value[2]=='done' %}
+    <!--<li> {{ value[1] }} <button onclick="myFunction({{ value[0] }})"> 删除 </button></li>-->
+    <li><del><span onclick="updateStatus({{ value[0] }})">{{ value[1] }}</span></del>
+        <button onclick="myFunction({{ value[0] }})"> 删除 </button>
+    </li>
+    {% else %}
+    <li><span onclick="updateStatus({{ value[0] }})">{{ value[1] }}</span>
+    <button onclick="myFunction({{ value[0] }})"> 删除 </button></li>
+        {% endif %}
     {% endfor %}
 </ul>
-<button  onclick="showDialog()">新增</button>
+<button onclick="showDialog()">新增</button>
 <dialog id="newTodoItem">
-    <textarea id="todoText">hello world</textarea><br>
-    <button onclick="hideDialog() ">no</button>
+    <textarea id="todoText"></textarea><br>
+    <button onclick="hideDialog()">no</button>
     <button onclick="addTodo()">yes</button>
 </dialog>
 </center>
+       </div>
 </body>
 <script>
         function myFunction(index){
@@ -37,7 +62,7 @@
             )
             .then(
                 function(response){
-                    window.location.reload();<!-- 自动删除-->
+                    window.location.reload();<!-- 自动-->
                 }
             )
         }
@@ -55,6 +80,12 @@
                 body:JSON.stringify({text:text})
         })
         document.getElementById('newTodoItem').close();
+        window.location.reload()
+        }
+        function updateStatus(index){
+            fetch('http://127.0.0.1:5000/todo/'+index,{
+                method:"PUT"
+        })
         window.location.reload()
         }
 </script>
